@@ -1,10 +1,11 @@
+import { Fragment } from 'react'
 import { Outlet } from 'react-router-dom'
 
 const DefaultLayout = () => {
   return (
-    <div>
+    <Fragment>
       <Outlet />
-    </div>
+    </Fragment>
   )
 }
 
