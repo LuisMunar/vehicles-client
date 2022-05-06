@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types'
 import { TableRow, TableCell } from '@mui/material'
 
+import { formatDate } from '../../../helpers'
+
 const VehicleStateless = ({ vehicle }) => {
   const { id, driver_id, type, model, capacity, plate, creation_date } = vehicle
 
@@ -25,7 +27,7 @@ const VehicleStateless = ({ vehicle }) => {
         { plate }
       </TableCell>
       <TableCell>
-        { creation_date }
+        { formatDate(creation_date) }
       </TableCell>
     </TableRow>
   )

@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import { Fragment } from 'react'
 
-import TableLoader from '../VehicleComponents/TableLoader'
-import Vehicles from '../VehicleComponents/Vehicles'
+import TableLoader from '../Global/TableLoader'
+import Vehicles from '../Vehicles'
 
 const HomeStateless = ({ isLoadingVehicles }) => {
   return (

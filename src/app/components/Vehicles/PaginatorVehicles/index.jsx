@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { getVehiclesMiddleware } from '../../../../redux/middlewares/vehiclesMiddleware'
+
+import { getVehiclesMiddleware } from '../../../redux/middlewares/vehiclesMiddleware'
 import PaginatorVehilesStateless from './PaginatorVehiclesStateless'
 
 const PaginatorVehicles = () => {
