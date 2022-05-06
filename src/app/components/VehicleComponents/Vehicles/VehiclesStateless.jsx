@@ -4,14 +4,32 @@ import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell } from
 import Vehicle from './Vehicle'
 import PaginatorVehicles from './PaginatorVehicles'
 
-const VehiclesStateless = ({ vehicles }) => {
+const VehiclesStateless = ({ vehicles, pages }) => {
   return (
-    <TableContainer>
+    <TableContainer className="full-height">
       <Table stickyHeader aria-label="sticky table">
         <TableHead>
           <TableRow>
-            <TableCell>
+            <TableCell className="table-cell-head">
               Vehicle Id
+            </TableCell>
+            <TableCell className="table-cell-head">
+              Driver Id
+            </TableCell>
+            <TableCell className="table-cell-head">
+              Type
+            </TableCell>
+            <TableCell className="table-cell-head">
+              Model
+            </TableCell>
+            <TableCell className="table-cell-head">
+              Capacity
+            </TableCell>
+            <TableCell className="table-cell-head">
+              Plate
+            </TableCell>
+            <TableCell className="table-cell-head">
+              Creation Date
             </TableCell>
           </TableRow>
         </TableHead>
@@ -21,7 +39,7 @@ const VehiclesStateless = ({ vehicles }) => {
         </TableBody>
       </Table>
 
-      <PaginatorVehicles />
+      { pages>1 && <PaginatorVehicles /> }
     </TableContainer>
   )
 }

@@ -14,7 +14,6 @@ const vehiclesReducer = (state = initialState, { type, payload }) => {
     case SET_SEARCHER_PARAMS:
       return {
         ...state,
-        rowsTotal: payload.count,
         currentPage: payload.currentPage,
         rowsPerPage: payload.rowsPerPage
       }
@@ -23,7 +22,6 @@ const vehiclesReducer = (state = initialState, { type, payload }) => {
         ...state,
         rowsTotal: payload.count,
         pages: payload.totalPages,
-        currentPage: payload.currentPage,
         vehicles: payload.rows
       }
 

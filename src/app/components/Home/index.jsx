@@ -9,7 +9,7 @@ const Home = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getVehiclesMiddleware())
+    dispatch(getVehiclesMiddleware(0, 50, 7))
   }, []) // eslint-disable-line
 
   return <HomeStateless isLoadingVehicles={ isLoadingVehicles } />

@@ -11,7 +11,7 @@ const PaginatorVehicles = () => {
   }
 
   const changeRowsPerPage = (newRowsQty) => {
-    dispatch(getVehiclesMiddleware(1, newRowsQty))
+    dispatch(getVehiclesMiddleware(0, newRowsQty))
   }
 
   return <PaginatorVehilesStateless
