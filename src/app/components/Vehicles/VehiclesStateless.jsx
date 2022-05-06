@@ -14,7 +14,7 @@ const VehiclesStateless = ({ vehicles, pages }) => {
               Vehicle Id
             </TableCell>
             <TableCell className="table-cell-head">
-              Driver Id
+              Driver
             </TableCell>
             <TableCell className="table-cell-head">
               Type

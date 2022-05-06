@@ -4,7 +4,7 @@ import { TableRow, TableCell } from '@mui/material'
 import { formatDate } from '../../../helpers'
 
 const VehicleStateless = ({ vehicle }) => {
-  const { id, driver_id, type, model, capacity, plate, creation_date } = vehicle
+  const { id, driver, type, model, capacity, plate, creation_date } = vehicle
 
   return (
     <TableRow key={ id } hover>
@@ -12,7 +12,7 @@ const VehicleStateless = ({ vehicle }) => {
         { id }
       </TableCell>
       <TableCell>
-        { driver_id }
+        { driver.first_name } { driver.last_name }
       </TableCell>
       <TableCell>
         { type }
