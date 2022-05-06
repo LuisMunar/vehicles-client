@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material'
 
 import Vehicle from './Vehicle'
+import AddVehicle from './AddVehicle'
 import PaginatorVehicles from './PaginatorVehicles'
 
 const VehiclesStateless = ({ vehicles, pages }) => {
@@ -38,6 +39,8 @@ const VehiclesStateless = ({ vehicles, pages }) => {
           { vehicles.map((vehicle) => (<Vehicle key={ vehicle.id } vehicle={ vehicle } />)) }
         </TableBody>
       </Table>
+
+      <AddVehicle />
 
       { pages>1 && <PaginatorVehicles /> }
     </TableContainer>
