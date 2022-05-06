@@ -1,6 +1,6 @@
 import { TableContainer, Table, TableRow, TableBody, TableCell, Skeleton} from '@mui/material'
 
-const LoaderVehicles = () => {
+const TableLoader = () => {
   return (
     <TableContainer>
       <Table stickyHeader aria-label="sticky table">
@@ -12,4 +12,4 @@ const LoaderVehicles = () => {
   )
 }
 
-export default LoaderVehicles
+export default TableLoader

@@ -1,11 +1,17 @@
 import PropTypes from 'prop-types'
-import { Fragment } from 'react'
+import { TableContainer, Table, TableBody } from '@mui/material'
+
+import Vehicle from './Vehicle'
 
 const VehiclesStateless = ({ vehicles }) => {
   return (
-    <Fragment>
-      { vehicles.map(({ id }) => <div key={ id }>{ id }</div> ) }
-    </Fragment>
+    <TableContainer>
+      <Table stickyHeader aria-label="sticky table">
+        <TableBody>
+          { vehicles.map((vehicle) => (<Vehicle key={ vehicle.id } vehicle={ vehicle } />)) }
+        </TableBody>
+      </Table>
+    </TableContainer>
   )
 }
 
