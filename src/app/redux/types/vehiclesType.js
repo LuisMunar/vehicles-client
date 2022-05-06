@@ -1,0 +1,2 @@
+export const SET_VEHICLES = 'SET_VEHICLES'
+export const LOADING_VEHICLES = 'LOADING_VEHICLES'

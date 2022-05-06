@@ -1,8 +1,13 @@
+import { Provider } from 'react-redux'
+
+import store from './redux/store'
 import AppRoutes from './routes'
 
 const App = () => {
   return (
-    <AppRoutes />
+    <Provider store={ store }>
+      <AppRoutes />
+    </Provider>
   )
 }
 
