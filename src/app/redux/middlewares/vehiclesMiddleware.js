@@ -1,11 +1,11 @@
 import { getVehiclesService } from '../../services/vehiclesService'
-import { loadingVehiclesAction, setVehiclesAction } from '../actions/vehiclesActions'
+import { loadingVehiclesAction, setSearcherParamsVechicles, setVehiclesAction } from '../actions/vehiclesActions'
 
-export const getVehiclesMiddleware = () => {
+export const getVehiclesMiddleware = (page=1, size=50, user=null) => {
   return async (dispatch) => {
     dispatch(loadingVehiclesAction(true))
-    dispatch(setVehiclesAction(await getVehiclesService()))
+    dispatch(setSearcherParamsVechicles({ currentPage: page, rowsPerPage: size }))
+    dispatch(setVehiclesAction(await getVehiclesService(page, size, user)))
     dispatch(loadingVehiclesAction(false))
-    
   }
 }

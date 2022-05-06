@@ -1,4 +1,9 @@
-import { LOADING_VEHICLES, SET_VEHICLES } from '../types/vehiclesType'
+import { LOADING_VEHICLES, SET_SEARCHER_PARAMS, SET_VEHICLES } from '../types/vehiclesType'
+
+export const setSearcherParamsVechicles = (payload) => ({
+  type: SET_SEARCHER_PARAMS,
+  payload
+})
 
 export const setVehiclesAction = (payload) => ({
   type: SET_VEHICLES,

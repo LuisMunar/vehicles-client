@@ -1,21 +1,30 @@
-import { LOADING_VEHICLES, SET_VEHICLES } from '../types/vehiclesType'
+import { LOADING_VEHICLES, SET_SEARCHER_PARAMS, SET_VEHICLES } from '../types/vehiclesType'
 
 const initialState = {
   vehicles: [],
   pages: 0,
+  rowsTotal: 0,
   currentPage: 0,
+  rowsPerPage: 50,
   isLoadingVehicles: false
 }
 
 const vehiclesReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case SET_VEHICLES:
-      const { totalPages, currentPage, rows } = payload
+    case SET_SEARCHER_PARAMS:
       return {
         ...state,
-        pages: totalPages,
-        currentPage,
-        vehicles: rows
+        rowsTotal: payload.count,
+        currentPage: payload.currentPage,
+        rowsPerPage: payload.rowsPerPage
+      }
+    case SET_VEHICLES:
+      return {
+        ...state,
+        rowsTotal: payload.count,
+        pages: payload.totalPages,
+        currentPage: payload.currentPage,
+        vehicles: payload.rows
       }
 
     case LOADING_VEHICLES:
