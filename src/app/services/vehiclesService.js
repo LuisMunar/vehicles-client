@@ -1,9 +1,9 @@
 import apiConfig from '../config/apiConfig'
 import { httpGetMethod, httpPostMethod } from './httpSerivce'
 
-export const getVehiclesService = (page, size, user) => {
+export const getVehiclesService = (page, size, driverId) => {
   return new Promise(async (resolve) => {
-    const { data } = await httpGetMethod(apiConfig.vehiclesEndpoint, { page, size, user })
+    const { data } = await httpGetMethod(apiConfig.vehiclesEndpoint, { page, size, driver_id: driverId })
     resolve(data.result)
   })
 }

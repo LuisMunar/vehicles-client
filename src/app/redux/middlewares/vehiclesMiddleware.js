@@ -2,11 +2,11 @@ import { addVehicleService, getVehiclesService } from '../../services/vehiclesSe
 import { setDriverAction } from '../actions/driversActions'
 import { addVechicleAction, handleModalAddVechileAction, loadingAddVehicleAction, loadingVehiclesAction, setSearcherParamsVechicles, setVehiclesAction } from '../actions/vehiclesActions'
 
-export const getVehiclesMiddleware = (page=0, size=50, user=null) => {
+export const getVehiclesMiddleware = (page=0, size=50, driverId=null) => {
   return async (dispatch) => {
     dispatch(loadingVehiclesAction(true))
     dispatch(setSearcherParamsVechicles({ currentPage: page, rowsPerPage: size }))
-    dispatch(setVehiclesAction(await getVehiclesService(++page, size, user)))
+    dispatch(setVehiclesAction(await getVehiclesService(++page, size, driverId)))
     dispatch(loadingVehiclesAction(false))
   }
 }
