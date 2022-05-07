@@ -3,11 +3,31 @@
 }
 
 .full-height {
-  height: 100vh;
+  height: 100%;
 }
 
 .full-width {
   width: 100%;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.position-abosolute {
+  position: absolute;
+}
+
+.p-1 {
+  padding: .5rem !important;
+}
+
+.p-2 {
+  padding: 1rem !important;
+}
+
+.p-3 {
+  padding: 1.5rem !important;
 }
 
 .mt-1 {
@@ -62,8 +82,8 @@
 
 .button-add-vehicle {
   position: absolute !important;
-  bottom: 1rem !important;
-  left: 1rem !important;
+  top: 1rem !important;
+  right: 1.5rem !important;
 }
 
 * {

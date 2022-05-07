@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types'
-import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material'
+import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Box } from '@mui/material'
 
 import Vehicle from './Vehicle'
-import AddVehicle from './AddVehicle'
-import PaginatorVehicles from './PaginatorVehicles'
 
-const VehiclesStateless = ({ vehicles, pages }) => {
+const VehiclesStateless = ({ vehicles }) => {
   return (
-    <TableContainer className="full-height">
+    <Box height={{ xs: 740, md: 500, xl: 850 }} className="position-relative">
+    <TableContainer className="position-absolute full-height full-width">
       <Table stickyHeader aria-label="sticky table">
         <TableHead>
           <TableRow>
@@ -39,11 +38,8 @@ const VehiclesStateless = ({ vehicles, pages }) => {
           { vehicles.map((vehicle) => (<Vehicle key={ vehicle.id } vehicle={ vehicle } />)) }
         </TableBody>
       </Table>
-
-      <AddVehicle />
-
-      { pages>1 && <PaginatorVehicles /> }
     </TableContainer>
+    </Box>
   )
 }
 

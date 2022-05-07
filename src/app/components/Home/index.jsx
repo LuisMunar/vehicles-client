@@ -5,14 +5,14 @@ import HomeStateless from './HomeStateless'
 import { getVehiclesMiddleware } from '../../redux/middlewares/vehiclesMiddleware'
 
 const Home = () => {
-  const { isLoadingVehicles } = useSelector(({ vehiclesReducer }) => vehiclesReducer)
+  const { isLoadingVehicles, pages } = useSelector(({ vehiclesReducer }) => vehiclesReducer)
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getVehiclesMiddleware())
   }, []) // eslint-disable-line
 
-  return <HomeStateless isLoadingVehicles={ isLoadingVehicles } />
+  return <HomeStateless isLoadingVehicles={ isLoadingVehicles } pages={ pages } />
 }
 
 export default Home

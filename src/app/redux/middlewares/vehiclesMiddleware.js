@@ -1,12 +1,13 @@
+import { getDriversByName } from '../../services/driversService'
 import { addVehicleService, getVehiclesService } from '../../services/vehiclesService'
 import { setDriverAction } from '../actions/driversActions'
 import { addVechicleAction, handleModalAddVechileAction, loadingAddVehicleAction, loadingVehiclesAction, setSearcherParamsVechicles, setVehiclesAction } from '../actions/vehiclesActions'
 
-export const getVehiclesMiddleware = (page=0, size=50, driverId=null) => {
+export const getVehiclesMiddleware = (page=0, size=50, driversId=null) => {
   return async (dispatch) => {
     dispatch(loadingVehiclesAction(true))
     dispatch(setSearcherParamsVechicles({ currentPage: page, rowsPerPage: size }))
-    dispatch(setVehiclesAction(await getVehiclesService(++page, size, driverId)))
+    dispatch(setVehiclesAction(await getVehiclesService(++page, size, driversId)))
     dispatch(loadingVehiclesAction(false))
   }
 }
@@ -20,4 +21,23 @@ export const addVehicleMiddleware = (vehicleData) => {
     dispatch(setDriverAction(null))
     dispatch(loadingAddVehicleAction(false))
   }
+}
+
+export const getVehiclesByDriverName = (driverName) => {
+  return async (dispatch) => {
+    if(driverName === '') {
+      dispatch(getVehiclesMiddleware())
+      return
+    }
+
+    dispatch(loadingVehiclesAction(true))
+    const drivers = await getDriversByName(driverName)
+    if(drivers && drivers.length>0) {
+      dispatch(getVehiclesMiddleware(0, 50, drivers.map(user => user.id)))
+      return
+    }
+
+    dispatch(setVehiclesAction({ count: 0, totalPages: 0, rows: [] }))
+    dispatch(loadingVehiclesAction(false))
+    }
 }

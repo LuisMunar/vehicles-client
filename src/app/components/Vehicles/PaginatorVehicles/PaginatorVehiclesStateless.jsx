@@ -4,7 +4,7 @@ import { TablePagination } from '@mui/material'
 
 const PaginatorVehiclesStateless = ({ rowsTotal, currentPage, rowsPerPage, changePage, changeRowsPerPage }) => {
   const handleChangePage = (_, newPage) => {
-    newPage > 0 && changePage(newPage)
+    changePage(newPage)
   }
 
   const handleChangeRowsPerPage = (event) => {
