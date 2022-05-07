@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types'
-import { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { Fragment, useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 import VehicleStateless from './VehicleStateless'
 import FormEditVehicle from './FormEditVehicle'
 import { setVehicleToEditAction } from '../../../redux/actions/vehiclesActions'
+import { deleteVehicleMiddleware } from '../../../redux/middlewares/vehiclesMiddleware'
 
 const Vehicle = ({ vehicle }) => {
   const [edit, setEdit] = useState(false)
-  const { loadingVehicleEdit } = useSelector(({ vehiclesReducer }) => vehiclesReducer)
   const dispatch = useDispatch()
 
   const handleEdit = () => {
@@ -20,7 +20,25 @@ const Vehicle = ({ vehicle }) => {
     setEdit(false)
   }
 
-  return edit ? <FormEditVehicle handleEditClose={ handleEditClose } /> : <VehicleStateless vehicle= { vehicle } loadingVehicleEdit={ loadingVehicleEdit } handleEdit={ handleEdit } />
+  const handleDelete = (vehicleId) => {
+    dispatch(deleteVehicleMiddleware(vehicleId))
+  }
+
+  return (
+    <Fragment>
+      {
+        edit ?
+        <FormEditVehicle
+          handleEditClose={ handleEditClose }
+        /> :
+        <VehicleStateless
+          vehicle= { vehicle }
+          handleEdit={ handleEdit }
+          handleDelete={ handleDelete }
+        />
+      }
+    </Fragment>
+  )
 }
 
 Vehicle.propTypes = {

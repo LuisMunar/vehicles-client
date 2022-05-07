@@ -28,3 +28,11 @@ export const httpPutMethod = (endpoint, params) => {
       .catch((error) => reject(error))
   })
 }
+
+export const httpDeleteMethod = (endpoint, params) => {
+  return new Promise((resolve, reject) => {
+    httpService.delete(endpoint, { params })
+      .then((result) => resolve(result))
+      .catch((error) => reject(error))
+  })
+}

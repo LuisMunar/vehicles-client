@@ -5,8 +5,10 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
 import { formatDate } from '../../../helpers'
 
-const VehicleStateless = ({ vehicle, loadingVehicleEdit, handleEdit }) => {
+const VehicleStateless = ({ vehicle, handleEdit, handleDelete }) => {
   const { id, driver, type, model, capacity, plate, creation_date } = vehicle
+
+  const setVehicleIdToDelete = () => handleDelete(id)
 
   return (
     <TableRow key={ id } hover>
@@ -36,7 +38,7 @@ const VehicleStateless = ({ vehicle, loadingVehicleEdit, handleEdit }) => {
         <IconButton color="primary" aria-label="upload picture" component="span" onClick={ handleEdit }>
           <EditIcon />
         </IconButton>
-        <IconButton color="primary" aria-label="upload picture" component="span">
+        <IconButton color="primary" aria-label="upload picture" component="span" onClick={ setVehicleIdToDelete }>
           <DeleteForeverIcon />
         </IconButton>
       </ButtonGroup>
@@ -47,8 +49,8 @@ const VehicleStateless = ({ vehicle, loadingVehicleEdit, handleEdit }) => {
 
 VehicleStateless.propTypes = {
   vehicle: PropTypes.object.isRequired,
-  loadingVehicleEdit: PropTypes.bool.isRequired,
-  handleEdit: PropTypes.func.isRequired
+  handleEdit: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired
 }
 
 export default VehicleStateless

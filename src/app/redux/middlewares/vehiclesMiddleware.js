@@ -1,7 +1,7 @@
 import { getDriversByName } from '../../services/driversService'
-import { addVehicleService, getVehiclesService, updateVehicleService } from '../../services/vehiclesService'
+import { addVehicleService, deleteVehicleService, getVehiclesService, updateVehicleService } from '../../services/vehiclesService'
 import { setDriverAction } from '../actions/driversActions'
-import { addVechicleAction, handleModalAddVechileAction, loadingAddVehicleAction, loadingVehicleEdit, loadingVehiclesAction, setNewDataVehicleUpdated, setSearcherParamsVechicles, setVehiclesAction } from '../actions/vehiclesActions'
+import { addVechicleAction, deleteVehicleAction, handleModalAddVechileAction, loadingAddVehicleAction, loadingVehicleEdit, loadingVehiclesAction, setNewDataVehicleUpdated, setSearcherParamsVechicles, setVehiclesAction } from '../actions/vehiclesActions'
 
 export const getVehiclesMiddleware = (page=0, size=50, driversId=null) => {
   return async (dispatch) => {
@@ -48,5 +48,12 @@ export const updateVehicleMiddleware = (vehicleToEdit) => {
     await updateVehicleService(vehicleToEdit)
     dispatch(setNewDataVehicleUpdated(vehicleToEdit))
     dispatch(loadingVehicleEdit(false))
+  }
+}
+
+export const deleteVehicleMiddleware = (vehicleId) => {
+  return async (dispatch) => {
+    await deleteVehicleService(vehicleId)
+    dispatch(deleteVehicleAction(vehicleId))
   }
 }

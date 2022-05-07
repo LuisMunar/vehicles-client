@@ -8,7 +8,8 @@ import {
   SET_VEHICLES,
   SET_VEHICLE_TO_EDIT,
   HANDLE_CHANGE_VALUE_VECHILE_EDIT,
-  SET_NEW_DATA_VEHICLE_UPDATED
+  SET_NEW_DATA_VEHICLE_UPDATED,
+  DELETE_VEHICLE
 } from '../types/vehiclesType'
 
 export const setSearcherParamsVechicles = (payload) => ({
@@ -58,5 +59,10 @@ export const handleChangeValueVehicleEditActions = (payload) => ({
 
 export const setNewDataVehicleUpdated = (payload) => ({
   type: SET_NEW_DATA_VEHICLE_UPDATED,
+  payload
+})
+
+export const deleteVehicleAction = (payload) => ({
+  type: DELETE_VEHICLE,
   payload
 })

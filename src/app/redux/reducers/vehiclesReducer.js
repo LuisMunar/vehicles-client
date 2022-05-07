@@ -1,5 +1,6 @@
 import {
   ADD_VEHICLE,
+  DELETE_VEHICLE,
   HANDLE_CHANGE_VALUE_VECHILE_EDIT,
   HANDLE_MODAL_ADD_VEHICLE,
   LOADING_ADD_VEHICLE,
@@ -127,6 +128,12 @@ const vehiclesReducer = (state = initialState, { type, payload }) => {
 
           return vehicle
         })]
+      }
+    
+    case DELETE_VEHICLE:
+      return {
+        ...state,
+        vehicles: state.vehicles.filter((vehicle) => vehicle.id !== payload)
       }
   
     default:

@@ -1,5 +1,5 @@
 import apiConfig from '../config/apiConfig'
-import { httpGetMethod, httpPostMethod, httpPutMethod } from './httpSerivce'
+import { httpDeleteMethod, httpGetMethod, httpPostMethod, httpPutMethod } from './httpSerivce'
 
 export const getVehiclesService = (page, size, driversId) => {
   return new Promise(async (resolve) => {
@@ -34,19 +34,12 @@ export const updateVehicleService = (vehicleDataToUpdate) => {
   })
 }
 
-// fetch('http://localhost:8000/vehicles', {
-//   method: 'PUT',
-//   headers: { 'Content-Type': 'application/json' },
-//   body: JSON.stringify({
-//     id: 10005,
-//     plate: 'plate updated I',
-//     model: 'model updated I',
-//     type: 'type updated I',
-//     capacity: 'capacity updated I'
-//   })
-// })
-//   .then(response => response.json())
-//   .then(aaa => console.log(aaa))
+export const deleteVehicleService = (vehicleId) => {
+  return new Promise(async (resolve) => {
+    const { data: { result } } = await httpDeleteMethod(apiConfig.vehiclesEndpoint, { id: vehicleId })
+    resolve(result)
+  })
+}
 
 // fetch('http://localhost:8000/vehicles?id=10005', { method: 'DELETE' })
 //   .then(response => response.json())
