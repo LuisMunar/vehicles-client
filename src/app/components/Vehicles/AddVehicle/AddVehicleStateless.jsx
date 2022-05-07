@@ -4,11 +4,11 @@ import useForm from 'react-hooks-form-validator'
 import { Modal, Grid, Card, CardContent, Typography, TextField, Button, CircularProgress, Fab } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 
-import { addVehicleFormControl } from '../../../helpers'
+import { addVehicleFormControl, formatDriverName } from '../../../helpers'
 
 const AddVehicleStateless = (props) => {
   const {
-    name,
+    driver,
     loadingAddVehicle,
     modalIsOpen,
     handleModalOpen,
@@ -20,18 +20,19 @@ const AddVehicleStateless = (props) => {
 
   const handleSearchDriver = (e) => {
     handleInputsChange(e)
-    const value = e.target.value
+    const { value } = e.target
     value !== '' && searchDriver(value)
   }
 
   const handleInputsChange = (e) => {
-    fields[e.target.name].setValue(e.target.value)
+    const { name, value } = e.target
+    fields[name].setValue(value)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
     const { driverId, plate, model, type, capacity } = fields
-    addVehicle({ driverId: driverId.value, plate: plate.value, model: model.value, type: type.value, capacity: capacity.value })
+    addVehicle({ driverId: driverId.value, plate: plate.value, model: model.value, type: type.value, capacity: capacity.value, driver })
   }
 
   return (
@@ -75,7 +76,7 @@ const AddVehicleStateless = (props) => {
                   <TextField
                     name="driverName"
                     type="text"
-                    value={ name }
+                    value={ formatDriverName(driver) }
                     variant="standard"
                     color="primary"
                     fullWidth
@@ -141,7 +142,7 @@ const AddVehicleStateless = (props) => {
                     color="primary"
                     variant="contained"
                     fullWidth
-                    disabled={ !formData.isValid || loadingAddVehicle }
+                    disabled={ !formData.isValid || loadingAddVehicle || !driver || !Object.keys(driver).length>0 }
                     className="mb-1"
                   >
                     {
@@ -181,7 +182,7 @@ const AddVehicleStateless = (props) => {
 }
 
 AddVehicleStateless.propTypes = {
-  name: PropTypes.string.isRequired,
+  driver: PropTypes.object,
   loadingAddVehicle: PropTypes.bool.isRequired,
   handleModalOpen: PropTypes.func.isRequired,
   handleModalClose: PropTypes.func.isRequired,

@@ -1,24 +1,23 @@
-import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { setDriverNameAction } from '../../../redux/actions/driversActions'
+import { setDriverAction } from '../../../redux/actions/driversActions'
+import { handleModalAddVechileAction } from '../../../redux/actions/vehiclesActions'
 
 import { getDriverMiddleware } from '../../../redux/middlewares/driversMiddleware'
 import { addVehicleMiddleware } from '../../../redux/middlewares/vehiclesMiddleware'
 import AddVehicleStateless from './AddVehicleStateless'
 
 const AddVehicle = () => {
-  const [modalIsOpen, setModalIsOpen] = useState(false)
-  const { name, } = useSelector(({ driversReducer }) => driversReducer)
-  const { loadingAddVehicle } = useSelector(({ vehiclesReducer }) => vehiclesReducer)
+  const { driver, } = useSelector(({ driversReducer }) => driversReducer)
+  const { loadingAddVehicle, modalAddVechicleIsOpen } = useSelector(({ vehiclesReducer }) => vehiclesReducer)
   const dispatch = useDispatch()
 
   const handleModalOpen = () => {
-    setModalIsOpen(true)
+    dispatch(handleModalAddVechileAction(true))
   }
 
   const handleModalClose = () => {
-    dispatch(setDriverNameAction(''))
-    setModalIsOpen(false)
+    dispatch(setDriverAction(null))
+    dispatch(handleModalAddVechileAction(false))
   }
 
   const searchDriver = (driverId) => {
@@ -30,9 +29,9 @@ const AddVehicle = () => {
   }
 
   return <AddVehicleStateless
-    name={ name }
+    driver={ driver }
     loadingAddVehicle={ loadingAddVehicle }
-    modalIsOpen={ modalIsOpen }
+    modalIsOpen={ modalAddVechicleIsOpen }
     handleModalOpen={ handleModalOpen }
     handleModalClose={ handleModalClose }
     searchDriver={ searchDriver }

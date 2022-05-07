@@ -1,2 +1,2 @@
 export const LOADING_DRIVER = 'LOADING_DRIVER'
-export const SET_DRIVER_NAME = 'SET_DRIVER_NAME'
+export const SET_DRIVER = 'SET_DRIVER'

@@ -1,8 +1,8 @@
-import { LOADING_DRIVER, SET_DRIVER_NAME } from '../types/driversType'
+import { LOADING_DRIVER, SET_DRIVER } from '../types/driversType'
 
 const initialState = {
   loadingDriver: false,
-  name: ''
+  driver: null
 }
 
 const driversReducer = (state = initialState, { type, payload }) => {
@@ -13,10 +13,10 @@ const driversReducer = (state = initialState, { type, payload }) => {
         isLoadingVehicles: payload
       }
 
-    case SET_DRIVER_NAME:
+    case SET_DRIVER:
       return {
         ...state,
-        name: payload
+        driver: payload
       }
   
     default:

@@ -46,3 +46,11 @@ export const addVehicleFormControl = {
     ]
   }
 }
+
+export const formatDriverName = (driver) => {
+  if(!driver) {
+    return ''
+  }
+  
+  return Object.keys(driver).length>0 ? `${ driver.first_name } ${ driver.last_name }` : 'Driver does not exist'
+}

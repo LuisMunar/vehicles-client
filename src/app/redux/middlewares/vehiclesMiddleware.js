@@ -1,5 +1,6 @@
-import { getVehiclesService } from '../../services/vehiclesService'
-import { loadingAddVehicleAction, loadingVehiclesAction, setSearcherParamsVechicles, setVehiclesAction } from '../actions/vehiclesActions'
+import { addVehicleService, getVehiclesService } from '../../services/vehiclesService'
+import { setDriverAction } from '../actions/driversActions'
+import { addVechicleAction, handleModalAddVechileAction, loadingAddVehicleAction, loadingVehiclesAction, setSearcherParamsVechicles, setVehiclesAction } from '../actions/vehiclesActions'
 
 export const getVehiclesMiddleware = (page=0, size=50, user=null) => {
   return async (dispatch) => {
@@ -13,7 +14,10 @@ export const getVehiclesMiddleware = (page=0, size=50, user=null) => {
 export const addVehicleMiddleware = (vehicleData) => {
   return async (dispatch) => {
     dispatch(loadingAddVehicleAction(true))
-    console.log('vehicleData => ', vehicleData)
-    setTimeout(() => dispatch(loadingAddVehicleAction(false)), 3000)
+    const result = await addVehicleService(vehicleData)
+    dispatch(addVechicleAction(result))
+    dispatch(handleModalAddVechileAction(false))
+    dispatch(setDriverAction(null))
+    dispatch(loadingAddVehicleAction(false))
   }
 }

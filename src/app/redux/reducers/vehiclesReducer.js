@@ -1,4 +1,4 @@
-import { LOADING_ADD_VEHICLE, LOADING_VEHICLES, SET_SEARCHER_PARAMS, SET_VEHICLES } from '../types/vehiclesType'
+import { ADD_VEHICLE, HANDLE_MODAL_ADD_VEHICLE, LOADING_ADD_VEHICLE, LOADING_VEHICLES, SET_SEARCHER_PARAMS, SET_VEHICLES } from '../types/vehiclesType'
 
 const initialState = {
   vehicles: [],
@@ -7,7 +7,8 @@ const initialState = {
   currentPage: 0,
   rowsPerPage: 50,
   isLoadingVehicles: false,
-  loadingAddVehicle: false
+  loadingAddVehicle: false,
+  modalAddVechicleIsOpen: false
 }
 
 const vehiclesReducer = (state = initialState, { type, payload }) => {
@@ -36,6 +37,18 @@ const vehiclesReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loadingAddVehicle: payload
+      }
+
+    case ADD_VEHICLE:
+      return {
+        ...state,
+        vehicles: [...state.vehicles, payload]
+      }
+    
+    case HANDLE_MODAL_ADD_VEHICLE:
+      return {
+        ...state,
+        modalAddVechicleIsOpen: payload
       }
   
     default:
