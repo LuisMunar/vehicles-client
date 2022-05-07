@@ -1,7 +1,7 @@
 import { getDriversByName } from '../../services/driversService'
-import { addVehicleService, getVehiclesService } from '../../services/vehiclesService'
+import { addVehicleService, getVehiclesService, updateVehicleService } from '../../services/vehiclesService'
 import { setDriverAction } from '../actions/driversActions'
-import { addVechicleAction, handleModalAddVechileAction, loadingAddVehicleAction, loadingVehiclesAction, setSearcherParamsVechicles, setVehiclesAction } from '../actions/vehiclesActions'
+import { addVechicleAction, handleModalAddVechileAction, loadingAddVehicleAction, loadingVehicleEdit, loadingVehiclesAction, setNewDataVehicleUpdated, setSearcherParamsVechicles, setVehiclesAction } from '../actions/vehiclesActions'
 
 export const getVehiclesMiddleware = (page=0, size=50, driversId=null) => {
   return async (dispatch) => {
@@ -39,5 +39,14 @@ export const getVehiclesByDriverName = (driverName) => {
 
     dispatch(setVehiclesAction({ count: 0, totalPages: 0, rows: [] }))
     dispatch(loadingVehiclesAction(false))
-    }
+  }
+}
+
+export const updateVehicleMiddleware = (vehicleToEdit) => {
+  return async (dispatch) => {
+    dispatch(loadingVehicleEdit(true))
+    await updateVehicleService(vehicleToEdit)
+    dispatch(setNewDataVehicleUpdated(vehicleToEdit))
+    dispatch(loadingVehicleEdit(false))
+  }
 }

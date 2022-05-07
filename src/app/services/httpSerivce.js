@@ -20,3 +20,11 @@ export const httpPostMethod = (endpoint, params) => {
       .catch((error) => reject(error))
   })
 }
+
+export const httpPutMethod = (endpoint, params) => {
+  return new Promise((resolve, reject) => {
+    httpService.put(endpoint, params)
+      .then((result) => resolve(result))
+      .catch((error) => reject(error))
+  })
+}

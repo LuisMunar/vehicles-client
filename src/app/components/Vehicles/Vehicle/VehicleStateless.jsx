@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types'
-import { TableRow, TableCell } from '@mui/material'
+import { TableRow, TableCell, ButtonGroup, IconButton } from '@mui/material'
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
 import { formatDate } from '../../../helpers'
 
-const VehicleStateless = ({ vehicle }) => {
+const VehicleStateless = ({ vehicle, loadingVehicleEdit, handleEdit }) => {
   const { id, driver, type, model, capacity, plate, creation_date } = vehicle
 
   return (
@@ -29,12 +31,24 @@ const VehicleStateless = ({ vehicle }) => {
       <TableCell>
         { formatDate(creation_date) }
       </TableCell>
+      <TableCell>
+      <ButtonGroup variant="text" aria-label="text button group">
+        <IconButton color="primary" aria-label="upload picture" component="span" onClick={ handleEdit }>
+          <EditIcon />
+        </IconButton>
+        <IconButton color="primary" aria-label="upload picture" component="span">
+          <DeleteForeverIcon />
+        </IconButton>
+      </ButtonGroup>
+      </TableCell>
     </TableRow>
   )
 }
 
 VehicleStateless.propTypes = {
-  vehicle: PropTypes.object.isRequired
+  vehicle: PropTypes.object.isRequired,
+  loadingVehicleEdit: PropTypes.bool.isRequired,
+  handleEdit: PropTypes.func.isRequired
 }
 
 export default VehicleStateless

@@ -1,4 +1,15 @@
-import { ADD_VEHICLE, HANDLE_MODAL_ADD_VEHICLE, LOADING_ADD_VEHICLE, LOADING_VEHICLES, SET_SEARCHER_PARAMS, SET_VEHICLES } from '../types/vehiclesType'
+import {
+  ADD_VEHICLE,
+  HANDLE_CHANGE_VALUE_VECHILE_EDIT,
+  HANDLE_MODAL_ADD_VEHICLE,
+  LOADING_ADD_VEHICLE,
+  LOADING_VEHICLES,
+  LOADING_VEHICLE_EDIT,
+  SET_NEW_DATA_VEHICLE_UPDATED,
+  SET_SEARCHER_PARAMS,
+  SET_VEHICLES,
+  SET_VEHICLE_TO_EDIT
+} from '../types/vehiclesType'
 
 const initialState = {
   vehicles: [],
@@ -8,7 +19,21 @@ const initialState = {
   rowsPerPage: 50,
   isLoadingVehicles: false,
   loadingAddVehicle: false,
-  modalAddVechicleIsOpen: false
+  modalAddVechicleIsOpen: false,
+  loadingVehicleEdit: false,
+  vehicleToEdit: {
+    id: '',
+    plate: '',
+    model: '',
+    type: '',
+    capacity: '',
+    driver: {
+      id: '',
+      firstName: '',
+      lastName: ''
+    },
+    creationDate: ''
+  }
 }
 
 const vehiclesReducer = (state = initialState, { type, payload }) => {
@@ -49,6 +74,59 @@ const vehiclesReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         modalAddVechicleIsOpen: payload
+      }
+
+    case LOADING_VEHICLE_EDIT:
+      return {
+        ...state,
+        loadingVehicleEdit: payload
+      }
+
+    case SET_VEHICLE_TO_EDIT:
+      return {
+        ...state,
+        vehicleToEdit: {
+          ...state.vehicleToEdit,
+          id: payload.id,
+          plate: payload.plate,
+          model: payload.model,
+          type: payload.type,
+          capacity: payload.capacity,
+          driver: {
+            ...state.vehicleToEdit.driver,
+            id: payload.driver.id,
+            firstName: payload.driver.first_name,
+            lastName: payload.driver.last_name
+          },
+          creationDate: payload.creation_date
+        }
+      }
+
+    case HANDLE_CHANGE_VALUE_VECHILE_EDIT:
+      return {
+        ...state,
+        vehicleToEdit: {
+          ...state.vehicleToEdit,
+          [payload.name]: payload.value
+        }
+      }
+
+    case SET_NEW_DATA_VEHICLE_UPDATED:
+      return {
+        ...state,
+        vehicles: [...state.vehicles.map(vehicle => {
+          if(vehicle.id === payload.id) {
+            return {
+              ...vehicle,
+              capacity: payload.capacity,
+              model: payload.model,
+              plate: payload.plate,
+              type: payload.type
+            }
+          }
+
+          return vehicle
+        })]
       }
   
     default:

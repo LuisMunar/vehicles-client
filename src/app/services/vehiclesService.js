@@ -1,5 +1,5 @@
 import apiConfig from '../config/apiConfig'
-import { httpGetMethod, httpPostMethod } from './httpSerivce'
+import { httpGetMethod, httpPostMethod, httpPutMethod } from './httpSerivce'
 
 export const getVehiclesService = (page, size, driversId) => {
   return new Promise(async (resolve) => {
@@ -26,19 +26,13 @@ export const addVehicleService = (vehicleDataToAdd) => {
   })
 }
 
-// fetch('http://localhost:8000/vehicles', {
-//   method: 'POST',
-//   headers: { 'Content-Type': 'application/json' },
-//   body: JSON.stringify({
-//     driver_id: 7,
-//     plate: 'plate',
-//     model: 'model',
-//     type: 'type',
-//     capacity: 'capacity'
-//   })
-// })
-//   .then(response => response.json())
-//   .then(aaa => console.log(aaa))
+export const updateVehicleService = (vehicleDataToUpdate) => {
+  return new Promise(async (resolve) => {
+    const { id, plate, model, type, capacity } = vehicleDataToUpdate
+    const { data: { result } } = await httpPutMethod(apiConfig.vehiclesEndpoint, { id, plate, model, type, capacity })
+    resolve(result)
+  })
+}
 
 // fetch('http://localhost:8000/vehicles', {
 //   method: 'PUT',

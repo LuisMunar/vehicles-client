@@ -31,6 +31,9 @@ const VehiclesStateless = ({ vehicles }) => {
             <TableCell className="table-cell-head">
               Creation Date
             </TableCell>
+            <TableCell className="table-cell-head">
+              Actions
+            </TableCell>
           </TableRow>
         </TableHead>
 
