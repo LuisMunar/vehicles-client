@@ -1,38 +1,43 @@
-// import PropTypes from 'prop-types'
-import { Fragment, useState } from 'react'
+import PropTypes from 'prop-types'
+import { Fragment } from 'react'
 import useForm from 'react-hooks-form-validator'
 import { Modal, Grid, Card, CardContent, Typography, TextField, Button, CircularProgress, Fab } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 
 import { addVehicleFormControl } from '../../../helpers'
 
-const AddVehicleStateless = () => {
-  const [open, setOpen] = useState(false)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
-  const [loading, setLoading] = useState(false)
+const AddVehicleStateless = (props) => {
+  const {
+    name,
+    loadingAddVehicle,
+    modalIsOpen,
+    handleModalOpen,
+    handleModalClose,
+    searchDriver,
+    addVehicle,
+  } = props
   const [fields, formData] = useForm(addVehicleFormControl)
+
+  const handleSearchDriver = (e) => {
+    handleInputsChange(e)
+    const value = e.target.value
+    value !== '' && searchDriver(value)
+  }
 
   const handleInputsChange = (e) => {
     fields[e.target.name].setValue(e.target.value)
-
-    console.log(formData.isValid)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('fields => ', fields)
-    setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-    }, 4000)
+    const { driverId, plate, model, type, capacity } = fields
+    addVehicle({ driverId: driverId.value, plate: plate.value, model: model.value, type: type.value, capacity: capacity.value })
   }
 
   return (
     <Fragment>
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={ modalIsOpen }
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         className="d-flex align-items-center justify-content-center"
@@ -63,20 +68,19 @@ const AddVehicleStateless = () => {
                     label="Driver Id"
                     error={ fields.driverId.errorMsg !== '' }
                     helperText={ fields.driverId.errorMsg }
-                    onChange={ handleInputsChange }
+                    onChange={ handleSearchDriver }
                     className="mb-2"
                   />
 
                   <TextField
                     name="driverName"
                     type="text"
+                    value={ name }
                     variant="standard"
                     color="primary"
                     fullWidth
                     label="Driver Name"
-                    error={ fields.driverName.errorMsg !== '' }
-                    helperText={ fields.driverName.errorMsg }
-                    onChange={ handleInputsChange }
+                    disabled={ true }
                     className="mb-2"
                   />
 
@@ -137,11 +141,11 @@ const AddVehicleStateless = () => {
                     color="primary"
                     variant="contained"
                     fullWidth
-                    disabled={ !formData.isValid || loading }
+                    disabled={ !formData.isValid || loadingAddVehicle }
                     className="mb-1"
                   >
                     {
-                      loading ?
+                      loadingAddVehicle ?
                       <CircularProgress color="inherit" size={ 25 } /> :
                       'Add Vechicle'
                     }
@@ -153,6 +157,7 @@ const AddVehicleStateless = () => {
                     variant="outlined"
                     fullWidth
                     className="mb-1"
+                    onClick={ handleModalClose }
                   >
                     Cancel
                   </Button>
@@ -167,7 +172,7 @@ const AddVehicleStateless = () => {
         color="primary"
         aria-label="add"
         className="button-add-vehicle"
-        onClick={ handleOpen }
+        onClick={ handleModalOpen }
       >
         <AddIcon />
       </Fab>
@@ -176,7 +181,12 @@ const AddVehicleStateless = () => {
 }
 
 AddVehicleStateless.propTypes = {
-  // drivers: PropTypes.array.isRequired
+  name: PropTypes.string.isRequired,
+  loadingAddVehicle: PropTypes.bool.isRequired,
+  handleModalOpen: PropTypes.func.isRequired,
+  handleModalClose: PropTypes.func.isRequired,
+  searchDriver: PropTypes.func.isRequired,
+  addVehicle: PropTypes.func.isRequired,
 }
 
 export default AddVehicleStateless

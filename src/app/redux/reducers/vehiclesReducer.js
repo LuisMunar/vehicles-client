@@ -1,4 +1,4 @@
-import { LOADING_VEHICLES, SET_SEARCHER_PARAMS, SET_VEHICLES } from '../types/vehiclesType'
+import { LOADING_ADD_VEHICLE, LOADING_VEHICLES, SET_SEARCHER_PARAMS, SET_VEHICLES } from '../types/vehiclesType'
 
 const initialState = {
   vehicles: [],
@@ -6,7 +6,8 @@ const initialState = {
   rowsTotal: 0,
   currentPage: 0,
   rowsPerPage: 50,
-  isLoadingVehicles: false
+  isLoadingVehicles: false,
+  loadingAddVehicle: false
 }
 
 const vehiclesReducer = (state = initialState, { type, payload }) => {
@@ -29,6 +30,12 @@ const vehiclesReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         isLoadingVehicles: payload
+      }
+
+    case LOADING_ADD_VEHICLE:
+      return {
+        ...state,
+        loadingAddVehicle: payload
       }
   
     default:

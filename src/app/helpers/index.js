@@ -13,14 +13,6 @@ export const addVehicleFormControl = {
       }
     ]
   },
-  driverName: {
-    validationFns: [
-      (fieldValue) => {
-        const validation = fieldValue !== '' && fieldValue !== undefined
-        return [validation, 'Driver name is required']
-      }
-    ]
-  },
   plate: {
     validationFns: [
       (fieldValue) => {
