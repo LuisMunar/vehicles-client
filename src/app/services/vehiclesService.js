@@ -40,7 +40,3 @@ export const deleteVehicleService = (vehicleId) => {
     resolve(result)
   })
 }
-
-// fetch('http://localhost:8000/vehicles?id=10005', { method: 'DELETE' })
-//   .then(response => response.json())
-//   .then(aaa => console.log(aaa))

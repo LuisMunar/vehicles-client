@@ -33,6 +33,12 @@ const AddVehicleStateless = (props) => {
     e.preventDefault()
     const { driverId, plate, model, type, capacity } = fields
     addVehicle({ driverId: driverId.value, plate: plate.value, model: model.value, type: type.value, capacity: capacity.value, driver })
+    formData.reset()
+  }
+
+  const setHandleCloseModal = () => {
+    handleModalClose()
+    formData.reset()
   }
 
   return (
@@ -158,7 +164,7 @@ const AddVehicleStateless = (props) => {
                     variant="outlined"
                     fullWidth
                     className="mb-1"
-                    onClick={ handleModalClose }
+                    onClick={ setHandleCloseModal }
                   >
                     Cancel
                   </Button>
