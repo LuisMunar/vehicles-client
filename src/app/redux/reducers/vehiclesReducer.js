@@ -6,6 +6,7 @@ import {
   LOADING_ADD_VEHICLE,
   LOADING_VEHICLES,
   LOADING_VEHICLE_EDIT,
+  MODAL_DELETE_VEHICLE,
   SET_NEW_DATA_VEHICLE_UPDATED,
   SET_SEARCHER_PARAMS,
   SET_VEHICLES,
@@ -34,7 +35,9 @@ const initialState = {
       lastName: ''
     },
     creationDate: ''
-  }
+  },
+  modalDeleteVehicle: false,
+  vehicleIdDelete: null
 }
 
 const vehiclesReducer = (state = initialState, { type, payload }) => {
@@ -134,6 +137,13 @@ const vehiclesReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         vehicles: state.vehicles.filter((vehicle) => vehicle.id !== payload)
+      }
+
+    case MODAL_DELETE_VEHICLE:
+      return {
+        ...state,
+        modalDeleteVehicle: payload.modalDeleteVehicle,
+        vehicleIdDelete: payload.vehicleIdDelete
       }
   
     default:

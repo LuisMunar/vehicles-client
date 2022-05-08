@@ -4,8 +4,7 @@ import { useDispatch } from 'react-redux'
 
 import VehicleStateless from './VehicleStateless'
 import FormEditVehicle from './FormEditVehicle'
-import { setVehicleToEditAction } from '../../../redux/actions/vehiclesActions'
-import { deleteVehicleMiddleware } from '../../../redux/middlewares/vehiclesMiddleware'
+import { modalDeleteVehicleAction, setVehicleToEditAction } from '../../../redux/actions/vehiclesActions'
 
 const Vehicle = ({ vehicle }) => {
   const [edit, setEdit] = useState(false)
@@ -21,7 +20,10 @@ const Vehicle = ({ vehicle }) => {
   }
 
   const handleDelete = (vehicleId) => {
-    dispatch(deleteVehicleMiddleware(vehicleId))
+    dispatch(modalDeleteVehicleAction({
+      modalDeleteVehicle: true,
+      vehicleIdDelete: vehicleId
+    }))
   }
 
   return (

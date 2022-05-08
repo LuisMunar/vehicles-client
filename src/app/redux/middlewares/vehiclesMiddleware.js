@@ -51,6 +51,7 @@ export const updateVehicleMiddleware = (vehicleToEdit) => {
     await updateVehicleService(vehicleToEdit)
     dispatch(setNewDataVehicleUpdated(vehicleToEdit))
     dispatch(loadingVehicleEdit(false))
+    dispatch(showNotificationAction({ type: NOTIFICATION_SUCCESS, message: 'Vehicle updated' }))
   }
 }
 
