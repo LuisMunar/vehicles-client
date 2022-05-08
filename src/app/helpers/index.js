@@ -54,3 +54,7 @@ export const formatDriverName = (driver) => {
   
   return Object.keys(driver).length>0 ? `${ driver.first_name } ${ driver.last_name }` : 'Driver does not exist'
 }
+
+export const generateRandomNumber = () => {
+  return new Date().getTime() + Math.random()
+}

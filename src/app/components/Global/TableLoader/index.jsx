@@ -5,7 +5,7 @@ const TableLoader = () => {
     <TableContainer>
       <Table stickyHeader aria-label="sticky table">
         <TableBody>
-          { Array.from(Array(10).keys()).map((i => <TableRow key={ i }><TableCell><Skeleton /></TableCell></TableRow>)) }
+          { Array.from(Array(9).keys()).map((i => <TableRow key={ i }><TableCell><Skeleton /></TableCell></TableRow>)) }
         </TableBody>
       </Table>
     </TableContainer>

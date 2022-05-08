@@ -1,6 +1,8 @@
+import { NOTIFICATION_SUCCESS } from '../../constants/notificationsConstants'
 import { getDriversByName } from '../../services/driversService'
 import { addVehicleService, deleteVehicleService, getVehiclesService, updateVehicleService } from '../../services/vehiclesService'
 import { setDriverAction } from '../actions/driversActions'
+import { showNotificationAction } from '../actions/notificationsActions'
 import { addVechicleAction, deleteVehicleAction, handleModalAddVechileAction, loadingAddVehicleAction, loadingVehicleEdit, loadingVehiclesAction, setNewDataVehicleUpdated, setSearcherParamsVechicles, setVehiclesAction } from '../actions/vehiclesActions'
 
 export const getVehiclesMiddleware = (page=0, size=50, driversId=null) => {
@@ -20,6 +22,7 @@ export const addVehicleMiddleware = (vehicleData) => {
     dispatch(handleModalAddVechileAction(false))
     dispatch(setDriverAction(null))
     dispatch(loadingAddVehicleAction(false))
+    dispatch(showNotificationAction({ type: NOTIFICATION_SUCCESS, message: 'Vehicle added' }))
   }
 }
 
@@ -55,5 +58,6 @@ export const deleteVehicleMiddleware = (vehicleId) => {
   return async (dispatch) => {
     await deleteVehicleService(vehicleId)
     dispatch(deleteVehicleAction(vehicleId))
+    dispatch(showNotificationAction({ type: NOTIFICATION_SUCCESS, message: 'Vehicle deleted' }))
   }
 }
