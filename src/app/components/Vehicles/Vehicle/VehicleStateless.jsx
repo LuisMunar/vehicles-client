@@ -3,9 +3,9 @@ import { TableRow, TableCell, ButtonGroup, IconButton } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
-import { formatDate } from '../../../helpers'
+import { formatDate, validateVehicleUpdating } from '../../../helpers'
 
-const VehicleStateless = ({ vehicle, handleEdit, handleDelete }) => {
+const VehicleStateless = ({ vehicle, loadingVehicleEdit, vehicleIdDelete, handleEdit, handleDelete }) => {
   const { id, driver, type, model, capacity, plate, creation_date } = vehicle
 
   const setVehicleIdToDelete = () => handleDelete(id)
@@ -19,16 +19,16 @@ const VehicleStateless = ({ vehicle, handleEdit, handleDelete }) => {
         { driver.first_name } { driver.last_name }
       </TableCell>
       <TableCell>
-        { type }
+        { validateVehicleUpdating(loadingVehicleEdit, id, vehicleIdDelete, type) }
       </TableCell>
       <TableCell>
-        { model }
+      { validateVehicleUpdating(loadingVehicleEdit, id, vehicleIdDelete, model) }
       </TableCell>
       <TableCell>
-        { capacity }
+      { validateVehicleUpdating(loadingVehicleEdit, id, vehicleIdDelete, capacity) }
       </TableCell>
       <TableCell>
-        { plate }
+      { validateVehicleUpdating(loadingVehicleEdit, id, vehicleIdDelete, plate) }
       </TableCell>
       <TableCell>
         { formatDate(creation_date) }
@@ -49,6 +49,8 @@ const VehicleStateless = ({ vehicle, handleEdit, handleDelete }) => {
 
 VehicleStateless.propTypes = {
   vehicle: PropTypes.object.isRequired,
+  loadingVehicleEdit: PropTypes.bool.isRequired,
+  vehicleIdDelete: PropTypes.number.isRequired,
   handleEdit: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired
 }

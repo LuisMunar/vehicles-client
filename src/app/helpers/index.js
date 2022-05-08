@@ -58,3 +58,7 @@ export const formatDriverName = (driver) => {
 export const generateRandomNumber = () => {
   return new Date().getTime() + Math.random()
 }
+
+export const validateVehicleUpdating = (loaidng, vehicleId, vehicleIdDelete, prop) => {
+  return loaidng && vehicleId === vehicleIdDelete ? 'Updating...' : prop
+}
