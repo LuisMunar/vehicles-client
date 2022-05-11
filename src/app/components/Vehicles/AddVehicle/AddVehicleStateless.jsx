@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import useForm from 'react-hooks-form-validator'
 import { Modal, Grid, Card, CardContent, Typography, TextField, Button, CircularProgress, Fab } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
@@ -8,6 +8,7 @@ import { addVehicleFormControl, formatDriverName } from '../../../helpers'
 
 const AddVehicleStateless = (props) => {
   const {
+    vehicleToEdit,
     driver,
     loadingAddVehicle,
     modalIsOpen,
@@ -15,8 +16,16 @@ const AddVehicleStateless = (props) => {
     handleModalClose,
     searchDriver,
     addVehicle,
+    handleInputsToEdit,
+    handleClickEditVehicle
   } = props
   const [fields, formData] = useForm(addVehicleFormControl)
+  const [isEdit, setIsEdit] = useState(false)
+
+  useEffect(() => {
+    const { plate } = vehicleToEdit
+    setIsEdit(!plate)
+  }, [vehicleToEdit])
 
   const handleSearchDriver = (e) => {
     handleInputsChange(e)
@@ -25,15 +34,24 @@ const AddVehicleStateless = (props) => {
   }
 
   const handleInputsChange = (e) => {
-    const { name, value } = e.target
-    fields[name].setValue(value)
+    if(!isEdit) {
+      handleInputsToEdit(e)
+    } else {
+      const { name, value } = e.target
+      fields[name].setValue(value)
+    }
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const { driverId, plate, model, type, capacity } = fields
-    addVehicle({ driverId: driverId.value, plate: plate.value, model: model.value, type: type.value, capacity: capacity.value, driver })
-    formData.reset()
+
+    if(!isEdit) {
+      handleClickEditVehicle()
+    } else {
+      const { driverId, plate, model, type, capacity } = fields
+      addVehicle({ driverId: driverId.value, plate: plate.value, model: model.value, type: type.value, capacity: capacity.value, driver })
+      formData.reset()
+    }
   }
 
   const setHandleCloseModal = () => {
@@ -63,10 +81,10 @@ const AddVehicleStateless = (props) => {
                   onSubmit={ handleSubmit }
                 >
                   <Typography variant="h5" className="mt-2 mb-3">
-                    Add new vehicle
+                    { `${ isEdit ? 'Add new' : 'Edit' } vehicle` }
                   </Typography>
 
-                  <TextField
+                  {isEdit && <TextField
                     name="driverId"
                     type="number"
                     variant="standard"
@@ -77,9 +95,9 @@ const AddVehicleStateless = (props) => {
                     helperText={ fields.driverId.errorMsg }
                     onChange={ handleSearchDriver }
                     className="mb-2"
-                  />
+                  />}
 
-                  <TextField
+                  {isEdit && <TextField
                     name="driverName"
                     type="text"
                     value={ formatDriverName(driver) }
@@ -89,9 +107,10 @@ const AddVehicleStateless = (props) => {
                     label="Driver Name"
                     disabled={ true }
                     className="mb-2"
-                  />
+                  />}
 
                   <TextField
+                    value={ vehicleToEdit.plate }
                     name="plate"
                     type="text"
                     variant="standard"
@@ -105,6 +124,7 @@ const AddVehicleStateless = (props) => {
                   />
 
                   <TextField
+                    value={ vehicleToEdit.model }
                     name="model"
                     type="text"
                     variant="standard"
@@ -118,6 +138,7 @@ const AddVehicleStateless = (props) => {
                   />
 
                   <TextField
+                    value={ vehicleToEdit.type }
                     name="type"
                     type="text"
                     variant="standard"
@@ -131,6 +152,7 @@ const AddVehicleStateless = (props) => {
                   />
 
                   <TextField
+                    value={ vehicleToEdit.capacity }
                     name="capacity"
                     type="text"
                     variant="standard"
@@ -148,7 +170,7 @@ const AddVehicleStateless = (props) => {
                     color="primary"
                     variant="contained"
                     fullWidth
-                    disabled={ !formData.isValid || loadingAddVehicle || !driver || !Object.keys(driver).length>0 }
+                    disabled={ !isEdit ? false : !formData.isValid || loadingAddVehicle || !driver || !Object.keys(driver).length>0 }
                     className="mb-1"
                   >
                     {
@@ -188,12 +210,15 @@ const AddVehicleStateless = (props) => {
 }
 
 AddVehicleStateless.propTypes = {
+  vehicleToEdit: PropTypes.object.isRequired,
   driver: PropTypes.object,
   loadingAddVehicle: PropTypes.bool.isRequired,
   handleModalOpen: PropTypes.func.isRequired,
   handleModalClose: PropTypes.func.isRequired,
   searchDriver: PropTypes.func.isRequired,
   addVehicle: PropTypes.func.isRequired,
+  handleInputsToEdit: PropTypes.func.isRequired,
+  handleClickEditVehicle: PropTypes.func.isRequired
 }
 
 export default AddVehicleStateless

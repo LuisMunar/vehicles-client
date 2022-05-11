@@ -10,7 +10,8 @@ import {
   HANDLE_CHANGE_VALUE_VECHILE_EDIT,
   SET_NEW_DATA_VEHICLE_UPDATED,
   DELETE_VEHICLE,
-  MODAL_DELETE_VEHICLE
+  MODAL_DELETE_VEHICLE,
+  RESET_FORM_VEHICLE_EDIT
 } from '../types/vehiclesType'
 
 export const setSearcherParamsVechicles = (payload) => ({
@@ -70,5 +71,10 @@ export const deleteVehicleAction = (payload) => ({
 
 export const modalDeleteVehicleAction = (payload) => ({
   type: MODAL_DELETE_VEHICLE,
+  payload
+})
+
+export const resetFormVehicleEditAction = (payload) => ({
+  type: RESET_FORM_VEHICLE_EDIT,
   payload
 })

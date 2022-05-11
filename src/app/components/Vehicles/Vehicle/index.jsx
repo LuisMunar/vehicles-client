@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import VehicleStateless from './VehicleStateless'
 import FormEditVehicle from './FormEditVehicle'
-import { modalDeleteVehicleAction, setVehicleToEditAction } from '../../../redux/actions/vehiclesActions'
+import { handleModalAddVechileAction, modalDeleteVehicleAction, setVehicleToEditAction } from '../../../redux/actions/vehiclesActions'
 
 const Vehicle = ({ vehicle }) => {
   const [edit, setEdit] = useState(false)
@@ -14,6 +14,7 @@ const Vehicle = ({ vehicle }) => {
 
   const handleEdit = () => {
     dispatch(setVehicleToEditAction(vehicle))
+    dispatch(handleModalAddVechileAction(true))
     setVehicleIdDelete(vehicle.id)
     setEdit(true)
   }
@@ -31,20 +32,29 @@ const Vehicle = ({ vehicle }) => {
 
   return (
     <Fragment>
-      {
-        edit ?
-        <FormEditVehicle
-          handleEditClose={ handleEditClose }
-        /> :
-        <VehicleStateless
+      <VehicleStateless
           vehicle= { vehicle }
           loadingVehicleEdit={ loadingVehicleEdit }
           vehicleIdDelete={ vehicleIdDelete }
           handleEdit={ handleEdit }
           handleDelete={ handleDelete }
         />
-      }
     </Fragment>
+    // <Fragment>
+    //   {
+    //     edit ?
+    //     <FormEditVehicle
+    //       handleEditClose={ handleEditClose }
+    //     /> :
+    //     <VehicleStateless
+    //       vehicle= { vehicle }
+    //       loadingVehicleEdit={ loadingVehicleEdit }
+    //       vehicleIdDelete={ vehicleIdDelete }
+    //       handleEdit={ handleEdit }
+    //       handleDelete={ handleDelete }
+    //     />
+    //   }
+    // </Fragment>
   )
 }
 

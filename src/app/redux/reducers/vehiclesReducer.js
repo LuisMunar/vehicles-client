@@ -7,11 +7,26 @@ import {
   LOADING_VEHICLES,
   LOADING_VEHICLE_EDIT,
   MODAL_DELETE_VEHICLE,
+  RESET_FORM_VEHICLE_EDIT,
   SET_NEW_DATA_VEHICLE_UPDATED,
   SET_SEARCHER_PARAMS,
   SET_VEHICLES,
   SET_VEHICLE_TO_EDIT
 } from '../types/vehiclesType'
+
+const vehicleParamToEdit = {
+  id: '',
+  plate: '',
+  model: '',
+  type: '',
+  capacity: '',
+  driver: {
+    id: '',
+    firstName: '',
+    lastName: ''
+  },
+  creationDate: ''
+}
 
 const initialState = {
   vehicles: [],
@@ -23,19 +38,7 @@ const initialState = {
   loadingAddVehicle: false,
   modalAddVechicleIsOpen: false,
   loadingVehicleEdit: false,
-  vehicleToEdit: {
-    id: '',
-    plate: '',
-    model: '',
-    type: '',
-    capacity: '',
-    driver: {
-      id: '',
-      firstName: '',
-      lastName: ''
-    },
-    creationDate: ''
-  },
+  vehicleToEdit: vehicleParamToEdit,
   modalDeleteVehicle: false,
   vehicleIdDelete: null
 }
@@ -104,6 +107,12 @@ const vehiclesReducer = (state = initialState, { type, payload }) => {
           },
           creationDate: payload.creation_date
         }
+      }
+
+    case RESET_FORM_VEHICLE_EDIT:
+      return {
+        ...state,
+        vehicleToEdit: initialState
       }
 
     case HANDLE_CHANGE_VALUE_VECHILE_EDIT:
